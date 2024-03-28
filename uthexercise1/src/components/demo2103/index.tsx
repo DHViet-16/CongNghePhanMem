@@ -34,7 +34,15 @@ const Demo2103 = () => {
     },
   ];
 
-  return < Table dataSource={dataSource} columns={columns} />;
+  return (
+    <div>
+      <Table columns={columns} dataSource={dataSource} />
+      <button onClick={() => {
+        localStorage.clear();
+        window.location.reload();
+      }}>Logout</button>
+    </div>
+  )
 }
 export default Demo2103;
 
