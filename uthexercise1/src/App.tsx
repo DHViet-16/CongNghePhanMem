@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       {localStorage.getItem('userName') == 'admin' ?
-        <Demo2103 /> : <LoginComponent />
+        <Demo2103 /> : <Demo2103 />
       }
 
     </div>
