@@ -4,13 +4,13 @@ import type { TableProps } from "antd";
 import { setDefaultResultOrder } from "dns";
 const Demo2103 = () => {
   const [searchData, setSearchData] = useState<DataType[]>([]);;
-  const [origin, setOrigin]= useState('');
+  const [origin, setOrigin] = useState('');
   interface DataType {
     key: string;
     name: string;
     age: number;
     origin: string;
-    address: string;
+    action: string;
     isEditable: boolean;
   }
   const dataSource: DataType[] = [
@@ -19,15 +19,15 @@ const Demo2103 = () => {
       name: 'Mike',
       age: 32,
       origin: 'America',
-      address: '10 Downing Street',
-      isEditable: true,
+      action: 'Add',
+      isEditable: false,
     },
     {
       key: '2',
       name: 'John',
       age: 42,
       origin: 'Canada',
-      address: '10 Downing Street',
+      action: 'Add',
       isEditable: false,
     },
   ];
@@ -47,27 +47,49 @@ const Demo2103 = () => {
       title: 'Origin',
       dataIndex: 'origin',
       key: 'origin',
-      render: (key, record, index) => {
+      render: (text, record) => {
         return (
+          // <>
+          //   {!record.isEditable
+          //     ?
+          //     <a onClick={() => {
+          //       alert(record.origin)
+          //     }}>{record.origin}</a>
+          //     : <input value={record.origin}/>
+          //   }
+          // </>
           <>
-            {!record.isEditable
+            {!record.isEditable && origin !== record.key
               ?
-              <a onClick={() => {
-                alert(record.origin)
-              }}>{record.origin}</a>
-              : <input value={record.origin}/>
-              // : <input type="text" value={record.origin} onChange={(e) => {
-              //   setOrigin(e.currentTarget.value)
-              // }} />
+              <a onClick={() => setOrigin(record.key)}>
+                {record.origin}
+              </a>
+              : <input
+                value={record.origin}
+                onChange={(e) => {
+                  const newValue = e.currentTarget.value;
+                  // Cập nhật giá trị origin trong dataSource
+                  const newData = dataSource.map(item => {
+                    if (item.key === record.key) {
+                      return { ...item, origin: newValue };
+                    }
+                    return item;
+                  });
+                  setSearchData(newData);
+                }}
+                onBlur={() => setOrigin(record.origin)} // Khi người dùng blur khỏi input
+              />
             }
           </>
-        )
+
+        );
       }
+
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'action',
       render: (key, record, index) => {
         return (
           // <Button type="primary">Delete</Button>
