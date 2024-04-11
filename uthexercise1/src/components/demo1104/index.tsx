@@ -43,7 +43,7 @@ const Test1 = () => {
                     }} />&nbsp;
                 <input type="checkbox" onChange={(e) => {
                     if (e.currentTarget.checked) {
-                        setMyProvinces([...myProvinces,'TPHCM']);
+                        setMyProvinces([...myProvinces, 'TPHCM']);
                     }
                     else {
                         setMyProvinces(myProvinces.filter(province => province !== 'TPHCM'));
@@ -53,7 +53,7 @@ const Test1 = () => {
                 />&nbsp;TPHCM &nbsp;
                 <input type="checkbox" onChange={(e) => {
                     if (e.currentTarget.checked) {
-                        setMyProvinces([...myProvinces,'Đồng Nai']);
+                        setMyProvinces([...myProvinces, 'Đồng Nai']);
                     }
                     else {
                         setMyProvinces(myProvinces.filter(province => province !== 'Đồng Nai'));
@@ -62,16 +62,16 @@ const Test1 = () => {
                 } />&nbsp;Đồng NAi &nbsp;
                 <input type="checkbox" onChange={(e) => {
                     if (e.currentTarget.checked) {
-                        setMyProvinces([...myProvinces,'Khánh Hòa']);
+                        setMyProvinces([...myProvinces, 'Khánh Hòa']);
                     }
                     else {
                         setMyProvinces(myProvinces.filter(province => province !== 'Khánh Hòa'));
                     }
                 }
-                }/>&nbsp;Khánh Hòa &nbsp;
-                <input type="checkbox"onChange={(e) => {
+                } />&nbsp;Khánh Hòa &nbsp;
+                <input type="checkbox" onChange={(e) => {
                     if (e.currentTarget.checked) {
-                        setMyProvinces([...myProvinces,'Tiền Giang']);
+                        setMyProvinces([...myProvinces, 'Tiền Giang']);
                     }
                     else {
                         setMyProvinces(myProvinces.filter(province => province !== 'Tiền Giang'));
@@ -79,7 +79,15 @@ const Test1 = () => {
                 }
                 } />&nbsp;Tiền Giang &nbsp;
                 <Button type="primary" onClick={() => {
-
+                    // Cập nhật điểm 
+                    let index: any = data.findIndex(a => a.id == 2)
+                    if (index != -1)
+                        data[index].result = 9;
+                    let previous = data.slice(0, index);
+                    let nexts = data.slice(index + 1);
+                    setSearchData([...previous, data[index], ...nexts]);
+                    
+                    //Lọc theo tỉnh
                     setSearchData(data.filter(student => myProvinces.length === 0 || myProvinces.includes(student.hometown)));
                 }
                 }
