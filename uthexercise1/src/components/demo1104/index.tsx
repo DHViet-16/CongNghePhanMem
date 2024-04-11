@@ -6,7 +6,7 @@
 //     console.log (index) =>1
 
 import React, { useState } from "react";
-import { Table, Input } from "antd";
+import { Table, Input, Button } from "antd";
 import { title } from "process";
 import { timeEnd, timeLog } from "console";
 
@@ -29,19 +29,64 @@ const Test1 = () => {
         { id: 5, studentCode: '0909005', studentName: 'Lê Văn Lợi', result: 8, hometown: 'Khánh Hòa' },
     ]
     const [searchData, setSearchData] = useState(data);
-    const myProvinces = ['TPHCM', 'Đồng Nai'];
+    const [myProvinces, setMyProvinces] = useState<string[]>([]);
     return (
         // <Table columns={columns} dataSource={data.filter(x => x.studentName.includes('Văn'))} />
         // <Table columns={columns} dataSource={data} />
         <div>
-            Find student by name: <Input type="text" value={searchText} onChange={(e) => setSearchText(e.currentTarget.value)}
-                onKeyPress={(e) => {
-                    if (e.key == 'Enter') {
-                        setSearchData(data.filter(x => x.studentName.toLowerCase().includes(searchText.toLowerCase().trim())))
+            <div style={{ display: 'inline' }}>
+                Find student by name: <Input type="text" style={{ width: '20%' }} value={searchText} onChange={(e) => setSearchText(e.currentTarget.value)}
+                    onKeyPress={(e) => {
+                        if (e.key == 'Enter') {
+                            setSearchData(data.filter(x => x.studentName.toLowerCase().includes(searchText.toLowerCase().trim())))
+                        }
+                    }} />&nbsp;
+                <input type="checkbox" onChange={(e) => {
+                    if (e.currentTarget.checked) {
+                        setMyProvinces([...myProvinces,'TPHCM']);
                     }
-                }} />
+                    else {
+                        setMyProvinces(myProvinces.filter(province => province !== 'TPHCM'));
+                    }
+                }
+                }
+                />&nbsp;TPHCM &nbsp;
+                <input type="checkbox" onChange={(e) => {
+                    if (e.currentTarget.checked) {
+                        setMyProvinces([...myProvinces,'Đồng Nai']);
+                    }
+                    else {
+                        setMyProvinces(myProvinces.filter(province => province !== 'Đồng Nai'));
+                    }
+                }
+                } />&nbsp;Đồng NAi &nbsp;
+                <input type="checkbox" onChange={(e) => {
+                    if (e.currentTarget.checked) {
+                        setMyProvinces([...myProvinces,'Khánh Hòa']);
+                    }
+                    else {
+                        setMyProvinces(myProvinces.filter(province => province !== 'Khánh Hòa'));
+                    }
+                }
+                }/>&nbsp;Khánh Hòa &nbsp;
+                <input type="checkbox"onChange={(e) => {
+                    if (e.currentTarget.checked) {
+                        setMyProvinces([...myProvinces,'Tiền Giang']);
+                    }
+                    else {
+                        setMyProvinces(myProvinces.filter(province => province !== 'Tiền Giang'));
+                    }
+                }
+                } />&nbsp;Tiền Giang &nbsp;
+                <Button type="primary" onClick={() => {
+
+                    setSearchData(data.filter(student => myProvinces.length === 0 || myProvinces.includes(student.hometown)));
+                }
+                }
+                    style={{ backgroundColor: 'blue' }}>Lọc dữ liệu</Button>
+            </div>
             <Table columns={columns} dataSource={searchData} />
-        </div>
+            /</div>
     )
 }
 export default Test1;
