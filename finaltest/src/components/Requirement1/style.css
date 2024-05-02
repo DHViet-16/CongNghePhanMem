@@ -1,0 +1,14 @@
+hr {
+    border: 2px solid rgb(134, 132, 132); /* Change the border style and thickness */
+    width: 80%; /* Adjust the width of the horizontal rule */
+    margin: 20px 0; /* Add space above and below the rule */
+  }
+.introduction-card {
+    display: flex;
+}
+.profile-image-container {
+    margin-right: 20px; /* Adjust the margin as needed */
+}
+.information-container {
+    text-align: left; /* Align the text to the left */
+}
